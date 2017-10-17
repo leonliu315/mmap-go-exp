@@ -113,6 +113,9 @@ func (m MMap) FlushOffset(offset, length uintptr) error {
 func (m *MMap) Unmap() error {
 	dh := m.header()
 	err := unmap(dh.Data, uintptr(dh.Len))
+	dh.Data = 0
+	dh.Len = 0
+	dh.Cap = 0
 	*m = nil
 	return err
 }
